@@ -2,13 +2,8 @@ from flask import Flask, request, redirect, render_template, url_for
 from use_model import model_predict
 
 ## App settings
-DEBUG = True
+DEBUG = False
 app = Flask(__name__)
-
-## Global variabels
-# ERROR = 0   # 1 for error found
-# Error_Message = ""
-# input_text = ""
 
 
 @app.route('/', methods=['GET','POST'])
@@ -20,22 +15,10 @@ def index():
         elif action == 'visualization':
             return redirect(url_for('visualization'))
     return render_template('index.html')
-    # return redirect(url_for('action'))
 
-
-# @app.route('/action', methods=['GET','POST'])
-# def action():
-#     if request.method == 'POST':
-#         action = request.form['action']
-#         if action == 'prediction':
-#             return redirect(url_for('prediction'))
-#         elif action == 'visualization':
-#             return redirect(url_for('visualization'))
-#     return render_template('index.html')
 
 @app.route('/prediction', methods=['GET','POST'])
 def prediction():
-    # global ERROR, Error_Message, input_text
     ERROR = 0
     Error_Message = ""
     input_text = ""
@@ -116,32 +99,4 @@ def visualization():
 
 
 if __name__ == "__main__":
-    # m1 = joblib.load(Estrus_Model_Path)
-    # m2 = joblib.load(Preg_Model_Path)
-
-    # """
-    # Input: [Milk yield, Fat(%), Protein(%), Conductivity, Lactose(%), Scc, Blood(%)]
-    # Output: True / False of estrus
-    # """
-    # line0 = [38901]
-    # line1 = [4.26]
-    # line2 = [3.11]
-    # line3 = [8.6]
-    # line4 = [4.77]
-    # line5 = [1908947]
-    # line6 = [0.01]
-    # input1 = pd.DataFrame({'Yield': pd.Series(line0, dtype='float64'),
-    #           'Fat': pd.Series(line1, dtype='float64'),
-    #           'Protein': pd.Series(line2, dtype='float64'),
-    #           'Conductivity': pd.Series(line3, dtype='float64'),
-    #           'Lactose': pd.Series(line4, dtype='float64'),
-    #           'Scc': pd.Series(line5, dtype='float64'),
-    #           'Blood': pd.Series(line6, dtype='float64')})
-    # # example1 = np.array([14674, 3.28, 2.99, 9.3, 4.61, 4808395, 0.01])
-    # # example1 = np.array([[14674], [3.28], [2.99], [9.3], [4.61], [4808395], [0.01]])
-
-    # print(input1)
-    # res = m1.predict(input1)
-    # print(res[0])
-
     app.run(port=5000, debug=DEBUG)
