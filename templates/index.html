@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    <title>Cloud Computing Dairy Project: Prediction of estrus and probability of pregnancy</title>
+
+    <script>
+        function predict() {
+            $.ajax({
+                url: "/",
+                type: "POST",
+                data: {"action": "prediction"},
+                success: function() {
+                    console.log("click prediction");
+                    window.location.href = 'prediction';
+                }
+            });
+        };
+
+        function visualize(){
+            $.ajax({
+                url: "/",
+                type: "POST",
+                data: {"action": "visualization"},
+                success: function() {
+                    console.log("click visualization");
+                    window.location.href = 'visualization';
+                }
+            });
+        };
+    </script>
+</head>
+
+<body>
+    <h1 class="title">Welcome to the application!</h1>
+
+    <div class="function-choice">
+        <h2>Choose one of the actions below</h2>
+        <div class="choice" id="choice-predict" onclick="predict()">
+            <h2>Prediction</h2>
+            <p>Get predictions of estrus and probability of pregnancy</p>
+        </div>
+
+        <div class="choice" id="choice-visualize" onclick="visualize()">
+            <h2>Visualization</h2>
+            <p>View characteristics of milk pattern around estrus</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/prediction.css">
+
+    <title>Cloud Computing Dairy Project: Prediction of estrus and probability of pregnancy</title>
+
+    <style>
+        * {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        /* Textarea */
+        .input {
+            width: 700px;
+            height: 200px;
+            border-radius: 2px;
+            resize: none;
+            outline: none;
+            background-color: aliceblue;
+            transition-duration: 0.2s;
+        }
+        .input:focus {
+            background-color: white;
+        }
+
+        /* Buttons */
+        input {
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+            transition-duration: 0.2s;
+            cursor: pointer;
+            margin-right: 20px;
+            width: 120px;
+        }
+
+        input.home {
+            background-color: #555555;
+            color: white;
+        }
+
+        input.home:hover {
+            background-color: white;
+            border: 2px solid #e7e7e7;
+            color: black;
+        }
+
+        input.submit {
+            color: white;
+            background-color: #008CBA;
+        }
+
+        input.submit:hover {
+            background-color: white;
+            border: 2px solid #008CBA;
+            color: black;
+        }
+
+        /* Result display */
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function(){
+            var error = {{error}};
+            if (error == 1) {
+                alert('{{error_message}}');
+            }
+            else {
+                var output = {{ output|tojson }};
+                console.log(output);
+                if (output.length != 0) {
+                    $('.result').removeClass('hidden');
+                    var data = '';
+                    $.each(output, function(key, value){
+                        data += '<tr>';
+                        data += '<td>'+value['#']+'</td>';
+                        data += '<td>'+value['Yield']+'</td>';
+                        data += '<td>'+value['Fat(%)']+'</td>';
+                        data += '<td>'+value['Protein(%)']+'</td>';
+                        data += '<td>'+value['Conductivity']+'</td>';
+                        data += '<td>'+value['Lactose(%)']+'</td>';
+                        data += '<td>'+value['SCC']+'</td>';
+                        data += '<td>'+value['Blood(%)']+'</td>';
+                        data += '<td>'+value['Estrus(T/F)']+'</td>';
+                        data += '<td>'+value['Pregnant Probability']+'</td>';
+                        data += '</tr>';
+                    });
+                    $('#table').append(data);
+                }
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+    <section>
+        <h1>Predictions</h1>
+        <br>
+        <h4>Please input data below in csv format:</h4>
+        <h4>Yield, Fat(%), Protein(%), Conductivity, Lactose(%), Somatic Cells, Blood(%)</h4>
+        <form method="POST" action="/prediction">
+            <textarea class="input" name="input" placeholder="eg: 40706, 3.38, 2.96, 9.3, 4.46, 2470523, 0.0">{{ input }}</textarea>
+            <div>
+                <input class="home" name="home" type="submit" value="Back">
+                <input class="submit" name="submit" type="submit" value="Submit">
+            </div>
+        </form>
+    </section>
+    <section class='result hidden'>
+        <br><br>
+        <h1>Results</h1>
+        <table class="table table-bordered table-striped" id="table">
+            <tr>
+                <th>#</th>
+                <th>Yield</th>
+                <th>Fat(%)</th>
+                <th>Protein(%)</th>
+                <th>Conductivity</th>
+                <th>Lactose(%)</th>
+                <th>Somatic Cells</th>
+                <th>Blood(%)</th>
+                <th>Estrus(T/F)</th>
+                <th>Pregnant Probability</th>
+            </tr>
+        </table>
+    </section>
+</body>
+
+</html>
