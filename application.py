@@ -99,4 +99,4 @@ def visualization():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=DEBUG)
+    app.run(ssl_context='adhoc', debug=DEBUG)
