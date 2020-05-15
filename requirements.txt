@@ -54,7 +54,6 @@ icc-rt==2020.0.133
 idna==2.9
 importlib-metadata==1.6.0
 inference-schema==1.0.2
-intel-numpy==1.15.1
 intel-openmp==2020.0.133
 interpret-community==0.9.2
 interpret-core==0.1.20
