@@ -76,31 +76,30 @@
         $(document).ready(function(){
             var error = {{error}};
             if (error == 1) {
+                console.log(error);
+                console.log('{{error_message}}');
                 alert('{{error_message}}');
             }
-            else {
-                var output = {{ output|tojson }};
-                if (output.length != 0) {
-                    $('.result').removeClass('hidden');
-                    var data = '';
-                    $.each(output, function(key, value){
-                        data += '<tr>';
-                        data += '<td>'+value['#']+'</td>';
-                        data += '<td>'+value['Yield']+'</td>';
-                        data += '<td>'+value['Fat(%)']+'</td>';
-                        data += '<td>'+value['Protein(%)']+'</td>';
-                        data += '<td>'+value['Conductivity']+'</td>';
-                        data += '<td>'+value['Lactose(%)']+'</td>';
-                        data += '<td>'+value['SCC']+'</td>';
-                        data += '<td>'+value['Blood(%)']+'</td>';
-                        data += '<td>'+value['Estrus(T/F)']+'</td>';
-                        data += '<td>'+value['Pregnant Probability']+'</td>';
-                        data += '</tr>';
-                    });
-                    $('#table').append(data);
-                }
+            var output = {{ output|tojson }};
+            if (output.length != 0) {
+                $('.result').removeClass('hidden');
+                var data = '';
+                $.each(output, function(key, value){
+                    data += '<tr>';
+                    data += '<td>'+value['#']+'</td>';
+                    data += '<td>'+value['Yield']+'</td>';
+                    data += '<td>'+value['Fat(%)']+'</td>';
+                    data += '<td>'+value['Protein(%)']+'</td>';
+                    data += '<td>'+value['Conductivity']+'</td>';
+                    data += '<td>'+value['Lactose(%)']+'</td>';
+                    data += '<td>'+value['SCC']+'</td>';
+                    data += '<td>'+value['Blood(%)']+'</td>';
+                    data += '<td>'+value['Estrus(T/F)']+'</td>';
+                    data += '<td>'+value['Pregnant Probability']+'</td>';
+                    data += '</tr>';
+                });
+                $('#table').append(data);
             }
-
         });
     </script>
 </head>
@@ -110,7 +109,7 @@
         <h1>Predictions</h1>
         <br>
         <h4>Please input data below in csv format:</h4>
-        <h4>Yield, Fat(%), Protein(%), Conductivity, Lactose(%), Somatic Cells, Blood(%)</h4>
+        <h4>Yield(gr), Fat(%), Protein(%), Conductivity(mmho), Lactose(%), Somatic Cells(*1000/ml), Blood(%)</h4>
         <form method="POST" action="/prediction">
             <textarea class="input" name="input" placeholder="eg: 40706, 3.38, 2.96, 9.3, 4.46, 2470523, 0.0">{{ input }}</textarea>
             <div>
@@ -125,12 +124,12 @@
         <table class="table table-bordered table-striped" id="table">
             <tr>
                 <th>#</th>
-                <th>Yield</th>
+                <th>Yield(gr)</th>
                 <th>Fat(%)</th>
                 <th>Protein(%)</th>
-                <th>Conductivity</th>
+                <th>Conductivity(mmho)</th>
                 <th>Lactose(%)</th>
-                <th>Somatic Cells</th>
+                <th>Somatic Cells(*1000/ml)</th>
                 <th>Blood(%)</th>
                 <th>Estrus(T/F)</th>
                 <th>Pregnant Probability</th>
