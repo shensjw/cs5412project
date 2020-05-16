@@ -5,8 +5,8 @@ import joblib
 
 ## Global variables for model paths
 Model_Path = "./model/"
-Estrus_Model_Path = Model_Path + "estrus-model.pkl"
-Preg_Model_Path = Model_Path + "pregprob-model.pkl"
+Estrus_Model_Path = "estrus-model.pkl"
+Preg_Model_Path = "pregprob-model.pkl"
 
 
 def run(model, data):
