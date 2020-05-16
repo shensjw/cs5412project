@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, render_template, url_for
 from use_model import model_predict
 
 ## App settings
-DEBUG = False
+DEBUG = True
 app = Flask(__name__)
 
 
@@ -11,9 +11,9 @@ def index():
     if request.method == 'POST':
         action = request.form['action']
         if action == 'prediction':
-            return redirect(url_for('prediction'))
+            return redirect(url_for('prediction', _external=True, scheme='https'))
         elif action == 'visualization':
-            return redirect(url_for('visualization'))
+            return redirect(url_for('visualization', _external=True, scheme='https'))
     return render_template('index.html')
 
 
@@ -24,7 +24,7 @@ def prediction():
     input_text = ""
     if request.method == 'POST':
         if "home" in request.form:
-            return redirect(url_for('index'))
+            return redirect(url_for('index', _external=True, scheme='https'))
         elif "submit" in request.form:
             input_text = request.form['input']
             lines = input_text.splitlines()
@@ -93,10 +93,12 @@ def prediction():
 @app.route('/visualization', methods=['GET','POST'])
 def visualization():
     if request.method == 'POST':
+        print(request.url)
+        print(url_for('index', _external=True, scheme='https'))
         if "home" in request.form:
-            return redirect(url_for('index'))
+            return redirect(url_for('index', _external=True, scheme='https'))
     return render_template('visualization.html')
 
 
 if __name__ == "__main__":
-    app.run(debug=DEBUG)
+    app.run(ssl_context='adhoc', debug=DEBUG)
