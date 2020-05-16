@@ -2,11 +2,12 @@ import json
 import numpy as np
 import pandas as pd
 import joblib
+import os
 
 ## Global variables for model paths
 Model_Path = "./model/"
-Estrus_Model_Path = "estrus-model.pkl"
-Preg_Model_Path = "pregprob-model.pkl"
+Estrus_Model_Path = os.path.dirname(__file__) + "/estrus-model.pkl"
+Preg_Model_Path = os.path.dirname(__file__) + "/pregprob-model.pkl"
 
 
 def run(model, data):
@@ -34,8 +35,10 @@ def model_predict(d_yield, d_fat, d_protein, d_cond, d_lactose, d_scc, d_blood):
     res_preg = run(model_preg, input_data)
     print(res_estr)
     print(res_preg)
-    if not res_estr[0] or not res_preg[0]:
-        return False, res_estr[1], res_preg[1]
+    if not res_estr[0]:
+        return False, res_estr[1]
+    if not res_preg[0]:
+        return False, res_preg[1]
     return True, res_estr[1], res_preg[1]
 
 
