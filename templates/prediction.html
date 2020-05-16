@@ -75,30 +75,32 @@
     <script>
         $(document).ready(function(){
             var error = {{error}};
-            // if (error == 1) {
-            //     console.log(error);
-            //     console.log('{{error_message}}');
-            //     alert('{{error_message}}');
-            // }
-            var output = {{ output|tojson }};
-            if (output.length != 0) {
-                $('.result').removeClass('hidden');
-                var data = '';
-                $.each(output, function(key, value){
-                    data += '<tr>';
-                    data += '<td>'+value['#']+'</td>';
-                    data += '<td>'+value['Yield']+'</td>';
-                    data += '<td>'+value['Fat(%)']+'</td>';
-                    data += '<td>'+value['Protein(%)']+'</td>';
-                    data += '<td>'+value['Conductivity']+'</td>';
-                    data += '<td>'+value['Lactose(%)']+'</td>';
-                    data += '<td>'+value['SCC']+'</td>';
-                    data += '<td>'+value['Blood(%)']+'</td>';
-                    data += '<td>'+value['Estrus(T/F)']+'</td>';
-                    data += '<td>'+value['Pregnant Probability']+'</td>';
-                    data += '</tr>';
-                });
-                $('#table').append(data);
+            if (error == 1) {
+                console.log(error);
+                console.log('{{error_message}}');
+                alert('{{error_message}}');
+            }
+            else {
+                var output = {{ output|tojson }};
+                if (output.length != 0) {
+                    $('.result').removeClass('hidden');
+                    var data = '';
+                    $.each(output, function(key, value){
+                        data += '<tr>';
+                        data += '<td>'+value['#']+'</td>';
+                        data += '<td>'+value['Yield']+'</td>';
+                        data += '<td>'+value['Fat(%)']+'</td>';
+                        data += '<td>'+value['Protein(%)']+'</td>';
+                        data += '<td>'+value['Conductivity']+'</td>';
+                        data += '<td>'+value['Lactose(%)']+'</td>';
+                        data += '<td>'+value['SCC']+'</td>';
+                        data += '<td>'+value['Blood(%)']+'</td>';
+                        data += '<td>'+value['Estrus(T/F)']+'</td>';
+                        data += '<td>'+value['Pregnant Probability']+'</td>';
+                        data += '</tr>';
+                    });
+                    $('#table').append(data);
+                }
             }
         });
     </script>
