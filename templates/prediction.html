@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -44,7 +44,7 @@
             width: 120px;
         }
 
-        /* input.home {
+        input.home {
             background-color: #555555;
             color: white;
         }
@@ -53,7 +53,7 @@
             background-color: white;
             border: 2px solid #e7e7e7;
             color: black;
-        } */
+        }
 
         input.submit {
             color: white;
@@ -113,7 +113,7 @@
         <form method="POST" action="/prediction">
             <textarea class="input" name="input" placeholder="eg: 40706, 3.38, 2.96, 9.3, 4.46, 2470523, 0.0">{{ input }}</textarea>
             <div>
-                <!-- <input class="home" name="home" type="submit" value="Back"> -->
+                <input class="home" name="home" type="submit" value="Back">
                 <input class="submit" name="submit" type="submit" value="Submit">
             </div>
         </form>
